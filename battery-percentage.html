@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battery Status Monitor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .battery-container {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .battery {
+            width: 200px;
+            height: 50px;
+            border: 3px solid #333;
+            position: relative;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .battery-level {
+            height: 100%;
+            background: green;
+            width: 50%; /* Default value */
+        }
+        .battery-status {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="battery-container">
+        <h2>Battery Status</h2>
+        <div class="battery">
+            <div class="battery-level" id="batteryLevel"></div>
+        </div>
+        <p class="battery-status" id="batteryStatus">Fetching battery status...</p>
+    </div>
+
+    <script>
+        navigator.getBattery().then(battery => {
+            function updateBatteryStatus() {
+                let level = battery.level * 100;
+                document.getElementById('batteryLevel').style.width = level + '%';
+                document.getElementById('batteryStatus').innerText = `Battery: ${level.toFixed(0)}% - ${battery.charging ? 'Charging' : 'Not Charging'}`;
+                document.getElementById('batteryLevel').style.background = level < 20 ? 'red' : level < 50 ? 'orange' : 'green';
+            }
+
+            updateBatteryStatus();
+            battery.addEventListener('chargingchange', updateBatteryStatus);
+            battery.addEventListener('levelchange', updateBatteryStatus);
+        });
+    </script>
+</body>
+</html>
