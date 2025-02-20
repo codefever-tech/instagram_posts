@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Screenshot Capture</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				height: 100vh;
+				background-color: #f4f4f4;
+			}
+			.container {
+				text-align: center;
+				padding: 20px;
+				background: white;
+				border-radius: 10px;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			}
+			button {
+				margin-top: 10px;
+				padding: 10px;
+				border: none;
+				background: #007bff;
+				color: white;
+				border-radius: 5px;
+				cursor: pointer;
+			}
+			button:hover {
+				background: #0056b3;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container" id="captureArea">
+			<h2>Screenshot Capture</h2>
+			<p>Click the button to capture and download a screenshot of this area.</p>
+			<button onclick="captureScreenshot()">Capture Screenshot</button>
+		</div>
+
+		<script>
+			function captureScreenshot() {
+				html2canvas(document.getElementById("captureArea")).then((canvas) => {
+					canvas.toBlob((blob) => {
+						const link = document.createElement("a");
+						link.href = URL.createObjectURL(blob);
+						link.download = "screenshot.png";
+						document.body.appendChild(link);
+						link.click();
+						document.body.removeChild(link);
+						URL.revokeObjectURL(link.href);
+					}, "image/png");
+				});
+			}
+		</script>
+	</body>
+</html>
