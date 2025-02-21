@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Test</title>
+	</head>
+	<body>
+    <button onclick='pushNotification("Hello!", "This is a notification from JavaScript!");'>Send Notification</button>
+		<script>
+      function pushNotification(
+        title,
+        body,
+        icon = "https://via.placeholder.com/100"
+      ) {
+        if ("Notification" in window) {
+          Notification.requestPermission().then((permission) => {
+            if (permission === "granted") {
+              new Notification(title, {
+                body,
+                icon,
+              });
+            }
+          });
+        }
+      }
+    </script>
+	</body>
+</html>
