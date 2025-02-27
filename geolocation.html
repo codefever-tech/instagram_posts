@@ -30,14 +30,18 @@
 
 			let marker = L.marker([0, 0]).addTo(map);
 			let circle = L.circle([0, 0], { radius: 100 }).addTo(map);
+			let updatedOnce = false;
 
 			function updateLocation(position) {
 				let lat = position.coords.latitude;
 				let lon = position.coords.longitude;
 				let accuracy = position.coords.accuracy;
-
+				
 				// Update map view
-				map.setView([lat, lon], 15);
+				if (!updatedOnce) {
+					map.setView([lat, lon], 15);
+					updatedOnce = true;
+				}
 
 				// Update marker and circle
 				marker.setLatLng([lat, lon]).bindPopup(`You are here!`).openPopup();
