@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibration API Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            padding: 15px 25px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Click to Vibrate</h1>
+    <button onclick="vibratePhone()">Vibrate</button>
+
+    <script>
+        function vibratePhone() {
+            if ("vibrate" in navigator) {
+                navigator.vibrate(200); // Vibrates for 200ms
+            } else {
+                alert("Vibration API is not supported on this device.");
+            }
+        }
+    </script>
+</body>
+</html>
