@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Share Button</title>
+    <style>
+      body {
+      	font-family: Arial, sans-serif;
+      	text-align: center;
+      	background-color: #f0f0f0;
+      	margin: 0;
+      	padding: 0;
+      	display: flex;
+      	align-items: center;
+      	justify-content: center;
+      	height: 100vh;
+      }
+      
+      button {
+      	padding: 10px 20px;
+      	font-size: 16px;
+      	background-color: #007bff;
+      	color: white;
+      	border: none;
+      	border-radius: 5px;
+      	cursor: pointer;
+      }
+      
+      button:hover {
+      	background-color: #0056b3;
+      }
+    </style>
+	</head>
+	<body>
+		<button id="shareBtn">Share This Page</button>
+
+		<script>
+      document.getElementById("shareBtn").addEventListener("click", async () => {
+      	const url = window.location.href;
+      
+      	if (navigator.share) {
+      		try {
+      			await navigator.share({
+      				title: document.title,
+      				url: url,
+      			});
+      			console.log("Page shared successfully!");
+      		} catch (error) {
+      			console.error("Error sharing:", error);
+      		}
+      	} else {
+      		// Fallback: Copy to clipboard
+      		try {
+      			await navigator.clipboard.writeText(url);
+      			alert("URL copied to clipboard!");
+      		} catch (error) {
+      			console.error("Failed to copy:", error);
+      		}
+      	}
+      });
+    </script>
+	</body>
+</html>
