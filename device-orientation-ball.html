@@ -55,7 +55,7 @@
             if (ball.x - ball.radius < 0) ball.x = ball.radius;
             if (ball.x + ball.radius > canvas.width) ball.x = canvas.width - ball.radius;
             if (ball.y - ball.radius < 0) ball.y = ball.radius;
-            if (ball.y + ball.radius > canvas.height) ball.y = canvas.height - ball.radius;
+            if (ball.y + ball.radius > 100) ball.y = canvas.height - ball.radius;
         }
 
         // Ensure canvas resizes properly
