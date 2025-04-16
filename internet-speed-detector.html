@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Internet Speed Detector</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 2rem;
+      background: #f0f4f8;
+    }
+    .card {
+      display: inline-block;
+      padding: 2rem;
+      border-radius: 12px;
+      background: white;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .status {
+      font-size: 1.5rem;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🌐 Internet Speed Detector</h1>
+    <div class="status" id="status">Checking...</div>
+  </div>
+
+  <script>
+    function updateConnectionStatus() {
+      const statusEl = document.getElementById('status');
+
+      if ('connection' in navigator) {
+        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+
+        const type = connection.effectiveType;
+        const downlink = connection.downlink; // Mbps
+        const rtt = connection.rtt; // Round-trip time
+
+        let speedLabel = '';
+
+        switch (type) {
+          case 'slow-2g':
+          case '2g':
+            speedLabel = '🐢 Very Slow';
+            break;
+          case '3g':
+            speedLabel = '🚶 Moderate';
+            break;
+          case '4g':
+            speedLabel = '🚀 Fast';
+            break;
+          default:
+            speedLabel = '🤷 Unknown';
+        }
+
+        statusEl.innerHTML = `
+          Network Type: <b>${type}</b><br>
+          Downlink: <b>${downlink} Mbps</b><br>
+          RTT: <b>${rtt} ms</b><br>
+          Speed: <b>${speedLabel}</b>
+        `;
+      } else {
+        statusEl.textContent = 'Network Information API not supported on this browser.';
+      }
+    }
+
+    updateConnectionStatus();
+
+    if (navigator.connection) {
+      navigator.connection.addEventListener('change', updateConnectionStatus);
+    }
+  </script>
+</body>
+</html>
