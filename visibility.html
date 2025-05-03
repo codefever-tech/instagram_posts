@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tab Spy</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f4;
+      color: #333;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      transition: all 0.3s ease;
+    }
+
+    body.hidden h1 {
+      color: #f44336;
+      transform: scale(1.1);
+    }
+
+    body.hidden {
+      background-color: #fff3f3;
+    }
+
+    body.visible h1 {
+      color: #4CAF50;
+      transform: scale(1);
+    }
+
+    body.visible {
+      background-color: #e8f5e9;
+    }
+
+    h1, body {
+      transition: all 0.5s ease;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="status">You are watching 👁️</h1>
+
+  <script>
+    document.addEventListener("visibilitychange", () => {
+      const status = document.getElementById("status");
+      if (document.hidden) {
+        document.body.classList.remove('visible');
+        document.body.classList.add('hidden');
+        status.textContent = "You left 😢";
+        document.title = "Come back!";
+      }
+    });
+  </script>
+</body>
+</html>
